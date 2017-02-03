@@ -317,6 +317,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         }
 
         for (var i = 0; i < openMenuEvent.length; ++i) {
+            openMenuEvent[i] = trim(openMenuEvent[i]);
             if (openMenuEvent[i]) {
                 element.on(openMenuEvent[i], function (event) {
                     if(!attrs.allowEventPropagation) {
