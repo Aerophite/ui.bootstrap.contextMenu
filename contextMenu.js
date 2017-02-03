@@ -317,29 +317,31 @@ angular.module('ui.bootstrap.contextMenu', [])
         }
 
         for (var i = 0; i < openMenuEvent.length; ++i) {
-            element.on(openMenuEvent[i], function (event) {
-                if(!attrs.allowEventPropagation) {
-                  event.stopPropagation();
-                  event.preventDefault();
-                }
-
-                // Don't show context menu if on touch device and element is draggable
-                if(isTouchDevice() && element.attr('draggable') === 'true') {
-                  return false;
-                }
-
-                $scope.$apply(function () {
-                    var options = $scope.$eval(attrs.contextMenu);
-                    var customClass = attrs.contextMenuClass;
-                    var modelValue = $scope.$eval(attrs.model);
-                    if (options instanceof Array) {
-                        if (options.length === 0) { return; }
-                        renderContextMenu($scope, event, options, modelValue, undefined, customClass);
-                    } else {
-                        throw '"' + attrs.contextMenu + '" not an array';
+            if (openMenuEvent[i]) {
+                element.on(openMenuEvent[i], function (event) {
+                    if(!attrs.allowEventPropagation) {
+                      event.stopPropagation();
+                      event.preventDefault();
                     }
+
+                    // Don't show context menu if on touch device and element is draggable
+                    if(isTouchDevice() && element.attr('draggable') === 'true') {
+                      return false;
+                    }
+
+                    $scope.$apply(function () {
+                        var options = $scope.$eval(attrs.contextMenu);
+                        var customClass = attrs.contextMenuClass;
+                        var modelValue = $scope.$eval(attrs.model);
+                        if (options instanceof Array) {
+                            if (options.length === 0) { return; }
+                            renderContextMenu($scope, event, options, modelValue, undefined, customClass);
+                        } else {
+                            throw '"' + attrs.contextMenu + '" not an array';
+                        }
+                    });
                 });
-            });
+            }
         }
     };
 }]);
