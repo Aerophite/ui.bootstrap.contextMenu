@@ -30,6 +30,17 @@ Add a reference to `contextMenu.js`. In your app config add `ui.bootstrap.contex
 </div>
 <div ng-bind="selected"></div>
 ```
+
+* OR
+
+```html
+<div>
+    <span>you can specify the event on how the menu opens:</span>
+    <div ng-repeat="item in items" context-menu="menuOptions" context-menu-on="contextmenu,click">Left and Right Click: {{item.name}}</div>
+</div>
+<div ng-bind="selected"></div>
+```
+
 ### Callback Parameters
 
 There are currently 5 parameters that are being passed to the callback:
